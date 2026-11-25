@@ -701,22 +701,7 @@ export default function App() {
               <div className="grow border-t border-white/10" />
             </div>
 
-            <div className="flex gap-2">
-              <input
-                type="text"
-                maxLength={6}
-                value={joinCodeInput}
-                onChange={(e) => setJoinCodeInput(e.target.value.toUpperCase())}
-                placeholder="رمز الغرفة"
-                className="flex-1 px-4 py-3 rounded-xl bg-[#0B0B0E] border border-white/15 text-center tracking-widest font-bold uppercase text-[#C8A45D] placeholder:text-white/30 placeholder:tracking-normal placeholder:font-normal focus:outline-none focus:border-[#C8A45D]"
-              />
-              <button
-                onClick={handleJoinRoom}
-                className="px-5 py-3 rounded-xl bg-[#1F1D26] hover:bg-[#2A2733] border border-[#C8A45D]/40 font-semibold text-[#C8A45D] transition cursor-pointer"
-              >
-                انضمام
-              </button>
-            </div>
+            
 
             <button
               onClick={() => setScreen("rules")}
