@@ -652,7 +652,7 @@ export default function App() {
         </aside>
       )}
 
-      <div className="w-full max-w-md space-y-5">
+      <div className="w-full max-w-md min-w-0 space-y-5">
         <header className="text-center space-y-1.5">
           <div className="inline-block px-3 py-1 rounded-full border border-[#C8A45D]/40 bg-[#141318] text-xs text-[#C8A45D] tracking-wider">
             لعبة الاستنتاج الاجتماعي • أونلاين
@@ -673,7 +673,7 @@ export default function App() {
 
         {/* الشاشة الرئيسية */}
         {screen === "home" && (
-          <main className="bg-[#141318] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-5">
+          <main className="w-full min-w-0 overflow-hidden bg-[#141318] border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-5">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-[#F5EFE6]/85">
                 اسمك في اللعبة
@@ -684,11 +684,12 @@ export default function App() {
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 placeholder="اكتب اسمك هنا..."
-                className="w-full px-4 py-3 rounded-xl bg-[#0B0B0E] border border-white/15 text-[#F5EFE6] placeholder:text-white/30 focus:outline-none focus:border-[#C8A45D]"
+                className="w-full min-w-0 px-4 py-3 rounded-xl bg-[#0B0B0E] border border-white/15 text-[#F5EFE6] placeholder:text-white/30 focus:outline-none focus:border-[#C8A45D]"
               />
             </div>
 
             <button
+              type="button"
               onClick={handleCreateRoom}
               className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] active:scale-[0.99] transition font-bold text-[#F5EFE6] shadow-lg shadow-[#7A1220]/30 cursor-pointer"
             >
@@ -701,9 +702,26 @@ export default function App() {
               <div className="grow border-t border-white/10" />
             </div>
 
-            
+            <div className="flex flex-col sm:flex-row items-stretch gap-2 w-full min-w-0">
+              <input
+                type="text"
+                maxLength={6}
+                value={joinCodeInput}
+                onChange={(e) => setJoinCodeInput(e.target.value.toUpperCase())}
+                placeholder="رمز الغرفة"
+                className="w-full sm:flex-1 min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#0B0B0E] border border-white/15 text-center text-sm sm:text-base font-bold uppercase text-[#C8A45D] placeholder:text-xs sm:placeholder:text-sm placeholder:text-white/30 placeholder:font-normal focus:outline-none focus:border-[#C8A45D]"
+              />
+              <button
+                type="button"
+                onClick={handleJoinRoom}
+                className="w-full sm:w-auto shrink-0 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-[#1F1D26] hover:bg-[#2A2733] border border-[#C8A45D]/40 text-sm sm:text-base font-semibold text-[#C8A45D] transition cursor-pointer whitespace-nowrap"
+              >
+                انضمام
+              </button>
+            </div>
 
             <button
+              type="button"
               onClick={() => setScreen("rules")}
               className="w-full py-2.5 rounded-xl border border-white/10 text-sm text-white/75 hover:bg-white/5 transition cursor-pointer"
             >
@@ -745,6 +763,7 @@ export default function App() {
               </p>
             </div>
             <button
+              type="button"
               onClick={handleGoHome}
               className="w-full py-3 rounded-xl bg-[#1F1D26] border border-white/15 font-semibold hover:bg-white/10 transition cursor-pointer"
             >
@@ -764,6 +783,7 @@ export default function App() {
                 </p>
               </div>
               <button
+                type="button"
                 onClick={handleCopyCode}
                 className="px-3.5 py-2 rounded-lg bg-[#C8A45D]/15 border border-[#C8A45D]/40 text-xs font-semibold text-[#C8A45D] hover:bg-[#C8A45D]/25 transition cursor-pointer"
               >
@@ -803,6 +823,7 @@ export default function App() {
             <div className="space-y-2 pt-2">
               {isHost ? (
                 <button
+                  type="button"
                   onClick={handleStartGame}
                   disabled={players.length < MIN_PLAYERS}
                   className="w-full py-3.5 rounded-xl bg-[#7A1220] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#8E1626] transition font-bold text-[#F5EFE6] cursor-pointer"
@@ -818,6 +839,7 @@ export default function App() {
               )}
 
               <button
+                type="button"
                 onClick={handleGoHome}
                 className="w-full py-2.5 rounded-xl border border-white/10 text-xs text-white/60 hover:bg-white/5 transition cursor-pointer"
               >
@@ -843,6 +865,7 @@ export default function App() {
             <div className="bg-[#0B0B0E] border border-white/15 rounded-2xl p-5 text-center space-y-4">
               {!isRoleVisible ? (
                 <button
+                  type="button"
                   onClick={() => setIsRoleVisible(true)}
                   className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] font-bold transition cursor-pointer"
                 >
@@ -865,6 +888,7 @@ export default function App() {
                   </div>
 
                   <button
+                    type="button"
                     onClick={handleConfirmMyRole}
                     className="w-full py-3 rounded-xl bg-[#1F1D26] hover:bg-white/10 border border-[#C8A45D]/40 text-sm font-bold text-[#C8A45D] transition cursor-pointer"
                   >
@@ -883,6 +907,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={() => patchRoom({ phase: "first_day_intro" })}
                 disabled={!allConfirmedRoles}
                 className="w-full py-3.5 rounded-xl bg-[#C8A45D] text-[#0B0B0E] disabled:opacity-40 disabled:cursor-not-allowed font-extrabold transition cursor-pointer"
@@ -933,6 +958,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={handleEnterNight}
                 className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] font-bold transition cursor-pointer"
               >
@@ -946,7 +972,7 @@ export default function App() {
           </section>
         )}
 
-        {/* الليل - قائمة الاغتيال (لشيخ المافيا الحي أو المافيا المتبقي الحي عند إقصاء الآخر؛ والمقصّى لا تظهر له أي قائمة) */}
+        {/* الليل - قائمة الاغتيال */}
         {screen === "game" && phase === "night_boss" && (
           <section className="bg-[#141318] border border-[#7A1220]/60 rounded-2xl p-6 shadow-2xl space-y-5">
             {canActAsKillBoss ? (
@@ -998,6 +1024,7 @@ export default function App() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={handleConfirmBossAction}
                   className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] font-bold transition cursor-pointer"
                 >
@@ -1043,7 +1070,7 @@ export default function App() {
           </section>
         )}
 
-        {/* الليل - قائمة التسكيت (لمافيا التسكيت الحية أو المافيا المتبقي الحي عند إقصاء الآخر؛ والمقصّى لا تظهر له أي قائمة) */}
+        {/* الليل - قائمة التسكيت */}
         {screen === "game" && phase === "night_silencer" && (
           <section className="bg-[#141318] border border-[#C8A45D]/50 rounded-2xl p-6 shadow-2xl space-y-5">
             {canActAsSilencer ? (
@@ -1094,6 +1121,7 @@ export default function App() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={handleConfirmSilencerAction}
                   className="w-full py-3.5 rounded-xl bg-[#C8A45D] text-[#0B0B0E] font-extrabold transition cursor-pointer"
                 >
@@ -1137,7 +1165,7 @@ export default function App() {
           </section>
         )}
 
-        {/* الليل - قائمة المستشفى (للمستشفى الحي فقط؛ إذا تم إقصاء المستشفى ينتهي دوره وتختفي قائمته) */}
+        {/* الليل - قائمة المستشفى */}
         {screen === "game" && phase === "night_hospital" && hasAliveHospital && (
           <section className="bg-[#141318] border border-emerald-500/40 rounded-2xl p-6 shadow-2xl space-y-5">
             {canActAsHospital ? (
@@ -1186,6 +1214,7 @@ export default function App() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={handleConfirmHospitalAndResolveNight}
                   className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[#0B0B0E] font-extrabold transition cursor-pointer"
                 >
@@ -1303,6 +1332,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={handleStartDayDiscussion}
                 className="w-full py-3.5 rounded-xl bg-[#C8A45D] text-[#0B0B0E] font-extrabold transition cursor-pointer"
               >
@@ -1359,6 +1389,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={() => patchRoom({ voteTargetId: null, phase: "voting" })}
                 className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] font-bold transition cursor-pointer"
               >
@@ -1424,6 +1455,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={handleConfirmVote}
                 className="w-full py-3.5 rounded-xl bg-[#C8A45D] text-[#0B0B0E] font-extrabold transition cursor-pointer"
               >
@@ -1471,6 +1503,7 @@ export default function App() {
 
             {isHost ? (
               <button
+                type="button"
                 onClick={handleProceedAfterVoteResult}
                 className="w-full py-3.5 rounded-xl bg-[#C8A45D] text-[#0B0B0E] font-extrabold transition cursor-pointer"
               >
@@ -1521,6 +1554,7 @@ export default function App() {
             <div className="space-y-2">
               {isHost && (
                 <button
+                  type="button"
                   onClick={handleStartGame}
                   className="w-full py-3.5 rounded-xl bg-[#7A1220] hover:bg-[#8E1626] font-bold transition cursor-pointer"
                 >
@@ -1528,6 +1562,7 @@ export default function App() {
                 </button>
               )}
               <button
+                type="button"
                 onClick={handleGoHome}
                 className="w-full py-2.5 rounded-xl border border-white/10 text-xs text-white/70 hover:bg-white/5 transition cursor-pointer"
               >
