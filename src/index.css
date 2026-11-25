@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --bg-charcoal: #0B0B0E;
+  --bg-surface: #141318;
+  --burgundy-deep: #3B0D14;
+  --crimson-dark: #7A1220;
+  --gold-antique: #C8A45D;
+  --ivory-white: #F5EFE6;
+  --hospital-green: #14452F;
+  --font-display: "Cairo", "Tajawal", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Tajawal", sans-serif;
+}
+
+html,
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-body);
+  background-color: var(--bg-charcoal);
+  color: var(--ivory-white);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
